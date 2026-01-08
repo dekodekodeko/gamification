@@ -380,11 +380,14 @@ function openModal() {
 
 function closeModal() {
     document.getElementById("modal").style.display = "none";
+    editIndex = null;
+    selectedTags = [];
 }
+
 
 function saveMetric() {
     const title = document.getElementById("metricTitle").value.trim();
-const tags = getSelectedTags();
+    const tags = getSelectedTags();
 
     if (!title || tags.length === 0) {
         alert("Metric title and at least one tag are required.");
@@ -395,7 +398,7 @@ const tags = getSelectedTags();
         name: title,
         type: "Custom",
         tags: tags.join(", "),
-        enabled: true
+        enabled: editIndex !== null ? metrics[editIndex].enabled : true
     };
 
     if (editIndex !== null) {
@@ -408,18 +411,31 @@ const tags = getSelectedTags();
     render();
 }
 
+
 function editMetric(index) {
     editIndex = index;
-    const m = metrics[index];
+    const metric = metrics[index];
+
+    // Set modal title
     document.getElementById("modalTitle").innerText = "Edit Metric";
-    document.getElementById("metricTitle").value = m.name;
 
-    Array.from(document.getElementById("metricTags").options).forEach(o => {
-        o.selected = m.tags.includes(o.value);
-    });
+    // Set metric title
+    document.getElementById("metricTitle").value = metric.name;
 
+    // Restore tags
+    selectedTags = metric.tags === "-" 
+        ? [] 
+        : metric.tags.split(",").map(t => t.trim());
+
+    renderSelectedTags();
+
+    // Clear search input
+    document.getElementById("tagInput").value = "";
+
+    // Open modal
     document.getElementById("modal").style.display = "flex";
 }
+
 
 function saveAll() {
     const payload = {
@@ -516,12 +532,13 @@ function renderSelectedTags() {
     container.innerHTML = "";
 
     selectedTags.forEach(tag => {
-        const chip = document.createElement("divi");
+        const chip = document.createElement("div");
         chip.className = "tag-chip";
         chip.innerHTML = `${tag} <span onclick="removeTag('${tag}')">×</span>`;
         container.appendChild(chip);
     });
 }
+
 
 /* Hook into existing saveMetric() */
 function getSelectedTags() {
