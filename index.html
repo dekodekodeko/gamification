@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +24,7 @@ body {
     color: var(--text);
 }
 
-h1 {
-    font-size: 22px;
-    margin-bottom: 24px;
-}
+h1 { font-size: 22px; margin-bottom: 24px; }
 
 .card {
     background: var(--bg);
@@ -43,7 +41,7 @@ h1 {
     margin-bottom: 16px;
 }
 
-select, input[type="text"] {
+select, input[type="text"], input[type="number"] {
     padding: 8px;
     width: 320px;
     border: 1px solid var(--border);
@@ -79,19 +77,13 @@ th, td {
     font-size: 14px;
 }
 
-th {
-    text-align: left;
-    color: var(--muted);
-}
+th { text-align: left; color: var(--muted); }
 
-.actions {
-    display: flex;
-    gap: 12px;
-}
-
-.link {
-    color: var(--primary);
-    cursor: pointer;
+/* Improve table wrapping for name and category */
+th:nth-child(1), td:nth-child(1), th:nth-child(2), td:nth-child(2) {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 180px; /* Add min-width for better spacing */
 }
 
 .switch {
@@ -100,9 +92,7 @@ th {
     height: 22px;
 }
 
-.switch input {
-    opacity: 0;
-}
+.switch input { opacity: 0; }
 
 .slider {
     position: absolute;
@@ -131,7 +121,6 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
-/* Modal */
 .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -143,105 +132,118 @@ input:checked + .slider:before {
 
 .modal {
     background: #fff;
-    width: 500px;
+    width: 620px;
     border-radius: 8px;
     padding: 24px;
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 
 .modal-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
 }
 
 .note {
     font-size: 13px;
     color: var(--muted);
-    margin-top: 6px;
-}
-.right{
-    display: flex;
-    justify-content: flex-end;
-}
-#updateStatus {
-    margin-left: auto;
-    font-size: 13px;
-    color: var(--muted);
-}
-.row{
-    gap: 5px;
-    display: flex;
-    flex-direction: column;
-    input{
-        cursor: pointer;
-    }
-}
-.tag-selector {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-        display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    margin: 8px 0;
 }
 
-.selected-tags {
+.right { text-align: right; margin-bottom: 16px; }
+
+.equation-builder {
+    padding: 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.score-levels {
+    margin: 20px 0;
+    padding: 12px;
+    background: #f1f5f9;
+    border-radius: 6px;
+}
+
+.level-item {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.genesys-id {
+    margin-top: 16px;
+    padding: 12px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 6px;
+    font-family: monospace;
+}
+.equation-builder {
+    padding: 20px;
+    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.equation-builder .note:first-child {
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 14px;
+}
+
+/* The input itself */
+#equationInput {
+    width: 100%;
+    min-height: 86px;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    transition: all 0.2s ease;
+    color: #1e293b;
+}
+
+#equationInput:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
+}
+
+/* Operator buttons container */
+.equation-builder .operators {
+    margin-top: 16px;
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 6px;
+    gap: 8px;
 }
 
-.tag-chip {
-    background: #eef2ff;
-    color: #1e3a8a;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+.equation-builder .operators button.secondary {
+    padding: 8px 14px;
+    font-size: 13.5px;
+    min-width: 42px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+
+.equation-builder .operators button.secondary:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+}
+.grp{
     display: flex;
-    align-items: center;
-    gap: 6px;
+    flex-direction: column;
 }
-
-.tag-chip span {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.tag-selector input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.tag-dropdown {
-    position: absolute;
-    width: 100%;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-top: 4px;
-    max-height: 160px;
-    overflow-y: auto;
-    display: none;
-    z-index: 10;
-}
-
-.tag-option {
-    padding: 8px 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.tag-option:hover {
-    background: #f3f4f6;
-}
-
 </style>
 </head>
-
 <body>
 
 <h1>Gamification Settings</h1>
@@ -249,24 +251,19 @@ input:checked + .slider:before {
 <!-- Global Setting -->
 <div class="card">
     <div class="card-title">Gamification Update Options</div>
-
     <div class="note" style="margin-bottom:12px">
         This setting applies globally to all gamification metrics.
     </div>
 
-    <div class="row">
+    <div style="display:flex; gap:24px; align-items:center;">
         <label>
-            <input type="radio" name="updateMode" value="realtime"
-                   onchange="updateGamificationMode(this.value)" checked>
+            <input type="radio" name="updateMode" value="realtime" onchange="updateGamificationMode(this.value)" checked>
             Real Time
         </label>
-
         <label>
-            <input type="radio" name="updateMode" value="eod"
-                   onchange="updateGamificationMode(this.value)">
+            <input type="radio" name="updateMode" value="eod" onchange="updateGamificationMode(this.value)">
             End of the Day
         </label>
-
         <span id="updateStatus" class="note"></span>
     </div>
 </div>
@@ -278,13 +275,13 @@ input:checked + .slider:before {
         <button onclick="openModal()">Create Metric</button>
     </div>
 
-
     <table>
         <thead>
             <tr>
                 <th>Metric Name</th>
-                <th>Type</th>
-                <th>Tags</th>
+                <th>Score Category</th>
+                <th>Equation</th>
+                <th>Genesys Metric ID</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -293,60 +290,83 @@ input:checked + .slider:before {
     </table>
 </div>
 
-
-<!-- Modal -->
+<!-- Modal - Enhanced Create/Edit Metric Flow -->
 <div class="modal-backdrop" id="modal">
     <div class="modal">
-        <div class="modal-title" id="modalTitle">Add Metric</div>
+        <div class="modal-title" id="modalTitle">Create New Metric</div>
+        <div class="grp">
+            <label class="note">Metric Name</label>
+            <input type="text" id="metricTitle" placeholder="e.g. First Contact Resolution Quality">
 
-        <label class="note">Metric Title</label><br>
-        <input type="text" id="metricTitle"><br><br>
+            <label class="note">Score Category</label>
+            <select id="scoreCategory" onchange="onCategoryChange()" >
+                <option value="">— Select score category —</option>
+                <option value="NPS">NPS</option>
+                <option value="CSAT">CSAT</option>
+                <option value="Agent Score">Agent Score</option>
+                <option value="Custom Survey">Custom Survey</option>
+            </select>
+        </div>
+        
 
-        <label class="note">Question Tags</label>
-
-<div class="tag-selector">
-
-    <input
-        type="text"
-        id="tagInput"
-        placeholder="Search or select tags"
-        oninput="filterTags(this.value)"
-        onfocus="showTagDropdown()"
-    />
-
-    <div class="tag-dropdown" id="tagDropdown"></div>
-
-        <div class="selected-tags" id="selectedTags"></div>
-
-</div>
-
-<div class="note">
-    If multiple tags are selected, the score will be calculated as the average of all questions
-    associated with the selected tags. If a tag is applied to multiple questions, the score
-    for that tag will be the average of those question scores.
-</div>
-
-        <div class="note">
-            If multiple tags are selected, the score will be calculated as the average of all questions associated with the selected tags.
-            If a tag is applied to multiple questions, the score for that tag will be the average of the scores of those questions.
+        <!-- Score Levels as clickable buttons -->
+        <div id="scoreLevelsContainer" style="display:none; margin-top:20px; margin-bottom: 24px;">
+            <div class="note">Available Score Levels (click to add):</div>
+            <div id="scoreLevelsButtons" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;"></div>
+            <div class="note" style="margin-top:12px;">Each level here represents the number of responses with that score level.</div>
         </div>
 
-        <div class="actions" style="margin-top:20px">
-            <button onclick="saveMetric()">Save</button>
+        <!-- Equation Builder with operators -->
+        <div id="equationBuilder" class="equation-builder" style="display:none;">
+    <div class="note">Build your scoring equation:</div>
+    
+    <input type="text" id="equationInput" placeholder="e.g. {Excellent} / ({Excellent} + {Good}) * 100" />
+    
+    <div class="operators">
+        <button type="button" class="secondary" onclick="appendToEquation(' + ')">+</button>
+        <button type="button" class="secondary" onclick="appendToEquation(' - ')">−</button>
+        <button type="button" class="secondary" onclick="appendToEquation(' * ')">×</button>
+        <button type="button" class="secondary" onclick="appendToEquation(' / ')">÷</button>
+        <button type="button" class="secondary" onclick="appendToEquation('(')">(</button>
+        <button type="button" class="secondary" onclick="appendToEquation(')')">)</button>
+        <!-- <button type="button" class="secondary" onclick="appendToEquation(' {Total} ')">Total</button>
+        <button type="button" class="secondary" onclick="appendToEquation('100')">100</button>
+        <button type="button" class="secondary" onclick="appendToEquation(' * 100')">×100</button> -->
+    </div>
+
+    <div class="note" style="margin-top:14px; font-size:12.5px; color:#64748b;">
+        Tip: Use curly braces { } around score levels • Common pattern: ({Excellent} + {Good}) / {Total} * 100
+    </div>
+</div>
+
+        <!-- Genesys ID simulation -->
+        <div id="genesysResult" class="genesys-id" style="display:none; margin-top:24px;">
+            <strong>Genesys External Metric ID:</strong><br>
+            <span id="generatedMetricId">—</span>
+        </div>
+
+        <div style="margin-top:32px; text-align:right; display:flex; justify-content:flex-end; gap:12px;">
             <button class="secondary" onclick="closeModal()">Cancel</button>
+            <button onclick="saveMetric()">Save Metric</button>
         </div>
     </div>
 </div>
 
 <script>
-let editIndex = null;
+// Mock data
+const availableCategories = {
+    "NPS":          ["Promoter", "Passive", "Detractor"],
+    "CSAT":         ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"],
+    "Agent Score":  ["Excellent", "Good", "Average", "Poor"],
+    "Custom Survey":["5 - Outstanding", "4", "3", "2", "1 - Very Poor"]
+};
 
-const metrics = [
-    { name: "Agent Score", type: "Default", tags: "-", enabled: true },
-    { name: "Survey Score", type: "Default", tags: "-", enabled: false },
-    { name: "NPS Score", type: "Default", tags: "-", enabled: true },
-    { name: "CSAT Score", type: "Default", tags: "-", enabled: true }
+let metrics = [
+    { name: "Agent Score", category: "Agent Score", equation: "({Excellent} + {Good}) / {Total} * 100", genesysId: "ext_agt_001", enabled: true },
+    { name: "CSAT Score", category: "CSAT", equation: "({Very Satisfied} + {Satisfied}) / {Total} * 100", genesysId: "ext_csat_002", enabled: true },
 ];
+
+let editIndex = null;
 
 function render() {
     const table = document.getElementById("metricTable");
@@ -356,48 +376,97 @@ function render() {
         table.innerHTML += `
         <tr>
             <td>${m.name}</td>
-            <td>${m.type}</td>
-            <td>${m.tags}</td>
+            <td>${m.category}</td>
+            <td><code>${m.equation}</code></td>
+            <td><code>${m.genesysId}</code></td>
             <td>
                 <label class="switch">
                     <input type="checkbox" ${m.enabled ? "checked" : ""} onchange="metrics[${i}].enabled=this.checked">
                     <span class="slider"></span>
                 </label>
             </td>
-            <td>
-                ${m.type === "Custom" ? `<span class="link" onclick="editMetric(${i})">Edit</span>` : "-"}
-            </td>
+            <td><span class="link" onclick="editMetric(${i})">Edit</span></td>
         </tr>`;
     });
 }
 
 function openModal() {
     editIndex = null;
-    document.getElementById("modalTitle").innerText = "Add Metric";
-    document.getElementById("metricTitle").value = "";
+    document.getElementById("modalTitle").innerText = "Create New Metric";
+    resetForm();
     document.getElementById("modal").style.display = "flex";
 }
 
 function closeModal() {
     document.getElementById("modal").style.display = "none";
-    editIndex = null;
-    selectedTags = [];
+    resetForm();
 }
 
+function resetForm() {
+    document.getElementById("metricTitle").value = "";
+    document.getElementById("scoreCategory").value = "";
+    document.getElementById("equationInput").value = "";
+    document.getElementById("scoreLevelsContainer").style.display = "none";
+    document.getElementById("equationBuilder").style.display = "none";
+    document.getElementById("genesysResult").style.display = "none";
+}
+
+function onCategoryChange() {
+    const category = document.getElementById("scoreCategory").value;
+    const levelsContainer = document.getElementById("scoreLevelsContainer");
+    const levelsButtons = document.getElementById("scoreLevelsButtons");
+    const builder = document.getElementById("equationBuilder");
+
+    levelsButtons.innerHTML = ""; // clear previous
+
+    if (category && availableCategories[category]) {
+        levelsContainer.style.display = "block";
+        builder.style.display = "block";
+
+        availableCategories[category].forEach(level => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "secondary";
+            btn.textContent = level;
+            btn.style.fontSize = "13px";
+            btn.style.padding = "6px 12px";
+            btn.onclick = () => appendToEquation(`{${level}}`);
+            levelsButtons.appendChild(btn);
+        });
+    } else {
+        levelsContainer.style.display = "none";
+        builder.style.display = "none";
+    }
+}
+
+function appendToEquation(text) {
+    const input = document.getElementById("equationInput");
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    
+    // Insert text at cursor position
+    input.value = input.value.substring(0, start) + text + input.value.substring(end);
+    
+    // Move cursor after inserted text
+    const newPos = start + text.length;
+    input.setSelectionRange(newPos, newPos);
+    input.focus();
+}
 
 function saveMetric() {
-    const title = document.getElementById("metricTitle").value.trim();
-    const tags = getSelectedTags();
+    const name = document.getElementById("metricTitle").value.trim();
+    const category = document.getElementById("scoreCategory").value;
+    const equation = document.getElementById("equationInput").value.trim();
 
-    if (!title || tags.length === 0) {
-        alert("Metric title and at least one tag are required.");
-        return;
-    }
+    if (!name) return alert("Metric name is required");
+    if (!category) return alert("Please select a score category");
+    if (!equation) return alert("Please define the scoring equation");
 
     const metric = {
-        name: title,
-        type: "Custom",
-        tags: tags.join(", "),
+        name,
+        category,
+        equation,
+        genesysId: `ext_${category.toLowerCase().replace(/\s+/g,'_')}_${Date.now().toString().slice(-6)}`,
         enabled: editIndex !== null ? metrics[editIndex].enabled : true
     };
 
@@ -407,144 +476,48 @@ function saveMetric() {
         metrics.push(metric);
     }
 
-    closeModal();
     render();
-}
+    closeModal();
 
+    // Optional: show success with generated ID
+    alert(`Metric "${name}" saved successfully!\nGenesys Metric ID: ${metric.genesysId}`);
+}
 
 function editMetric(index) {
     editIndex = index;
-    const metric = metrics[index];
+    const m = metrics[index];
 
-    // Set modal title
     document.getElementById("modalTitle").innerText = "Edit Metric";
+    document.getElementById("metricTitle").value = m.name;
+    
+    document.getElementById("scoreCategory").value = m.category;
+    onCategoryChange(); // This will now generate the level buttons
 
-    // Set metric title
-    document.getElementById("metricTitle").value = metric.name;
+    document.getElementById("equationInput").value = m.equation;
 
-    // Restore tags
-    selectedTags = metric.tags === "-" 
-        ? [] 
-        : metric.tags.split(",").map(t => t.trim());
-
-    renderSelectedTags();
-
-    // Clear search input
-    document.getElementById("tagInput").value = "";
-
-    // Open modal
     document.getElementById("modal").style.display = "flex";
 }
 
-
-function saveAll() {
-    const payload = {
-        updateMode: document.getElementById("updateMode").value,
-        metrics
-    };
-
-    console.log("Saved Payload:", payload);
-    alert("Gamification settings saved successfully.");
-}
-
-render();
-</script>
-
-</body>
-<script>
+// Global update mode simulation
 let updateSaveTimeout = null;
-
 function updateGamificationMode(value) {
     const status = document.getElementById("updateStatus");
     status.textContent = "Saving...";
 
-    // Simulate API save delay
     clearTimeout(updateSaveTimeout);
     updateSaveTimeout = setTimeout(() => {
         console.log("Update mode saved:", value);
-
         status.textContent = "Saved";
         status.style.color = "var(--success)";
-
         setTimeout(() => {
             status.textContent = "";
             status.style.color = "var(--muted)";
-        }, 2000);
-    }, 600);
+        }, 1800);
+    }, 700);
 }
+
+render();
 </script>
-
-<script>
-const availableTags = [
-    "Product",
-    "Communication",
-    "Resolution",
-    "Professionalism",
-    "Compliance",
-    "Courtesy"
-];
-
-let selectedTags = [];
-
-function showTagDropdown() {
-    renderTagDropdown(availableTags);
-}
-
-function filterTags(value) {
-    const filtered = availableTags.filter(t =>
-        t.toLowerCase().includes(value.toLowerCase()) &&
-        !selectedTags.includes(t)
-    );
-    renderTagDropdown(filtered);
-}
-
-function renderTagDropdown(tags) {
-    const dropdown = document.getElementById("tagDropdown");
-    dropdown.innerHTML = "";
-
-    tags.forEach(tag => {
-        const div = document.createElement("div");
-        div.className = "tag-option";
-        div.innerText = tag;
-        div.onclick = () => addTag(tag);
-        dropdown.appendChild(div);
-    });
-
-    dropdown.style.display = tags.length ? "block" : "none";
-}
-
-function addTag(tag) {
-    if (!selectedTags.includes(tag)) {
-        selectedTags.push(tag);
-        renderSelectedTags();
-    }
-    document.getElementById("tagInput").value = "";
-    document.getElementById("tagDropdown").style.display = "none";
-}
-
-function removeTag(tag) {
-    selectedTags = selectedTags.filter(t => t !== tag);
-    renderSelectedTags();
-}
-
-function renderSelectedTags() {
-    const container = document.getElementById("selectedTags");
-    container.innerHTML = "";
-
-    selectedTags.forEach(tag => {
-        const chip = document.createElement("div");
-        chip.className = "tag-chip";
-        chip.innerHTML = `${tag} <span onclick="removeTag('${tag}')">×</span>`;
-        container.appendChild(chip);
-    });
-}
-
-
-/* Hook into existing saveMetric() */
-function getSelectedTags() {
-    return selectedTags;
-}
-</script>
-
-
+</body>
 </html>
+```
